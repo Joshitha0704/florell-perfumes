@@ -4,10 +4,13 @@
 <head>
     <title>Florell Perfume Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Lato:wght@300;400;700&family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;600&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Lato', sans-serif; /* A sleek and elegant sans-serif */
             background-color: #fff;
             display: flex;
             flex-direction: column;
@@ -26,12 +29,22 @@
             font-size: 24px;
             color: #333;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif; /* A beautiful serif font for the logo */
+        }
+
+        .header .logo img {
+            height: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
         .nav-items a {
             text-decoration: none;
             color: #333;
             padding: 10px 15px;
+            font-family: 'Raleway', sans-serif; /* A lighter, more modern sans-serif for navigation */
         }
 
         main {
@@ -73,15 +86,38 @@
         }
 
         .intro h1 {
-            font-size: 36px;
+            font-size: 42px;
             color: #333;
             margin: 20px 0;
+            font-family: 'Playfair Display', serif; /* Elegant serif for the main heading */
         }
 
         .intro p {
             font-size: 18px;
             color: #666;
             margin: 20px 0;
+            font-family: 'Open Sans', sans-serif; /* Readable sans-serif for paragraphs */
+        }
+
+        .customize-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #d17b88;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif; /* Modern sans-serif for buttons */
+        }
+
+        .customize-button:hover {
+            background-color:#d17b88;
+        }
+
+        .products-section {
+            text-align: center;
+            padding: 20px;
         }
 
         .products {
@@ -113,12 +149,15 @@
             font-size: 20px;
             color: #333;
             margin: 10px 0;
+            font-family: 'Montserrat', sans-serif; /* Modern sans-serif for product names */
+            font-weight: 500;
         }
 
         .product p {
             font-size: 16px;
             color: #666;
             margin: 10px 0;
+            font-family: 'Open Sans', sans-serif; /* Readable sans-serif for product prices */
         }
 
         .product button {
@@ -128,6 +167,7 @@
             border: none;
             cursor: pointer;
             border-radius: 4px;
+            font-family: 'Raleway', sans-serif; /* Lighter sans-serif for product buttons */
         }
 
         .footer {
@@ -136,6 +176,8 @@
             padding: 20px;
             text-align: center;
             margin-top: auto;
+            font-family: 'Open Sans', sans-serif; /* Readable sans-serif for the footer */
+            font-size: 14px;
         }
 
         .footer .copy {
@@ -151,6 +193,7 @@
             text-decoration: none;
             color: #a1a1a1;
             padding: 0 10px;
+            font-family: 'Raleway', sans-serif; /* Lighter sans-serif for footer links */
         }
 
         .bottom-links a:hover {
@@ -178,18 +221,21 @@
 
 <body>
     <header class="header">
-        <a href="#" class="logo">Florell</a>
+        <a href="index.html" class="logo">
+            <img src="pppp.jpg" alt="Florell Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+            Florell
+        </a>
         <nav class="nav-items">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="index.html">Home</a>
+            <a href="#products-section">Shop</a>
+            <a href="about.html">About</a>
+            <a href="#contact">Contact</a>
             <a href="cart.html" style="background: #d17b88; color: white; padding: 6px 12px; border-radius: 4px;">View
                 Cart</a>
         </nav>
     </header>
 
-    <main>
+    <main id="home">
         <div class="intro">
             <h1>Welcome to Florell</h1>
             <p>Customizable, unisex, and eco-friendly perfumes crafted just for you.</p>
@@ -200,50 +246,55 @@
                     <img src="spray.jpg">
                 </div>
             </div>
+            <a href="customize.html" class="customize-button">Customize Your Scent & Find Your Match</a>
         </div>
 
-        <div class="products">
+        <div class="products-section" id="products-section">
+            <h2>Our Products</h2>
+        </div>
+
+        <div class="products" id="shop">
             <div class="product">
                 <img src="Midnight Bloom.jpg" alt="Midnight Bloom">
                 <h3>Midnight Bloom </h3>
                 <p>Rs 249</p>
-                <button onclick="addToCart('Midnight Bloom', 249)">Add to Cart</button>
+                <button onclick="addToCart('Midnight Bloom', 249, 'Midnight Bloom.jpg')">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="Lavender Dusk.jpg" alt="Lavender Dusk">
                 <h3>Lavender Dusk</h3>
                 <p>Rs 249</p>
-                <button onclick="addToCart('Lavender Dusk', 249)">Add to Cart</button>
+                <button onclick="addToCart('Lavender Dusk', 249, 'Lavender Dusk.jpg')">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="Sunlit Mimosa.jpg" alt="Sunlit Mimosa">
                 <h3>Sunlit Mimosa</h3>
                 <p>Rs 249</p>
-                <button onclick="addToCart('Sunlit Mimosa', 249)">Add to Cart</button>
+                <button onclick="addToCart('Sunlit Mimosa', 249, 'Sunlit Mimosa.jpg')">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="Blushing Peony.jpg" alt="Blushing Peony">
                 <h3>Blushing Peony</h3>
                 <p>Rs 249</p>
-                <button onclick="addToCart('Blushing Peony', 249)">Add to Cart</button>
+                <button onclick="addToCart('Blushing Peony', 249, 'Blushing Peony.jpg')">Add to Cart</button>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <div class="copy">&copy; 2025 Florell</div>
+        <div class="copy">© 2025 Florell</div>
         <div class="bottom-links">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#home">Home</a>
+            <a href="#products-section">Shop</a>
+            <a href="about.html">About</a>
+            <a href="#contact">Contact</a>
         </div>
-        <div class="contact-details">
-            <a href="mailto:info@florellperfume.com" title="Email Us"><i class="fas fa-envelope"></i></a>
-            <a href="tel:+919876543210" title="Call Us"><i class="fas fa-phone"></i></a>
-            <a href="https://www.instagram.com/florell_perfumes?igsh=MTNuOGJjdWlwZm13Ng==" target="_blank" title="Follow us on Instagram"><i
+        <div class="contact-details" id="contact">
+            <a href="mailto:florellperfumes@gmail.com" title="Email Us"><i class="fas fa-envelope"></i></a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtzzQT8gp49E0kzrDIxkswM1Qa8VWpdlRXELvoo9a62Yjptw/viewform?usp=header" title="Message Us"><i class="fas fa-comment-dots"></i></a>
+            <a href="https://www.instagram.com/florell_official" target="_blank" title="Follow us on Instagram"><i
                     class="fab fa-instagram"></i></a>
-            <a href="https://youtu.be/fAeWBIFmUVw" target="_blank" title="Subscribe on YouTube"><i
+            <a href="https://www.youtube.com/@florellperfumes" target="_blank" title="Subscribe on YouTube"><i
                     class="fab fa-youtube"></i></a>
         </div>
     </footer>
@@ -260,12 +311,12 @@
 
         const cart = JSON.parse(localStorage.getItem("florelleCart")) || [];
 
-        function addToCart(name, price) {
+        function addToCart(name, price, imageSrc) {
             const existing = cart.find(item => item.name === name);
             if (existing) {
                 existing.quantity += 1;
             } else {
-                cart.push({ name, price, quantity: 1 });
+                cart.push({ name, price, quantity: 1, image: imageSrc });
             }
             localStorage.setItem("florelleCart", JSON.stringify(cart));
             alert(`${name} added to cart.`);
