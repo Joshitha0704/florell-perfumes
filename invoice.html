@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florélle - Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .invoice-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 30px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td {
+            padding: 8px 0;
+            text-align: left;
+        }
+        td:first-child {
+            font-weight: bold;
+            padding-right: 10px;
+            width: 150px;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+        }
+        .back-to-shop {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-to-shop a {
+            text-decoration: none;
+            color: #302f49;
+            padding: 10px 20px;
+            border: 1px solid #302f49;
+            border-radius: 5px;
+        }
+        .back-to-shop a:hover {
+            background-color: #302f49;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <h2>Invoice</h2>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td id="invName"></td>
+            </tr>
+            <tr>
+                <td>Mobile:</td>
+                <td id="invMobile"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td id="invEmail"></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td id="invAddress"></td>
+            </tr>
+            <tr>
+                <td>Payment Method:</td>
+                <td id="invMethod"></td>
+            </tr>
+            <tr>
+                <td>Total with GST/SGST:</td>
+                <td class="total">₹<span id="invTotal"></span></td>
+            </tr>
+        </table>
+        <div class="back-to-shop">
+            <a href="index.html">Back to Shop</a>
+        </div>
+    </div>
+
+    <script>
+        // Retrieve invoice details from localStorage
+        const invoiceData = JSON.parse(localStorage.getItem('florelleInvoice'));
+
+        if (invoiceData) {
+            document.getElementById('invName').textContent = invoiceData.name;
+            document.getElementById('invMobile').textContent = invoiceData.mobile;
+            document.getElementById('invEmail').textContent = invoiceData.email;
+            document.getElementById('invAddress').textContent = invoiceData.address;
+            document.getElementById('invMethod').textContent = invoiceData.paymentMethod;
+            document.getElementById('invTotal').textContent = invoiceData.total;
+        } else {
+            // Handle case where invoice data is not found (e.g., user navigated directly)
+            alert("Invoice details not found.");
+            window.location.href = 'index.html'; // Redirect to the shop
+        }
+
+        // Optionally clear the invoice data from localStorage after displaying
+        localStorage.removeItem('florelleInvoice');
+    </script>
+</body>
+</html>
