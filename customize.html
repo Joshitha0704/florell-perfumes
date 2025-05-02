@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Customize Your Scent - Florell Perfume Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-items a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 15px;
+        }
+
+        .customize-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .customize-options {
+            margin-bottom: 30px;
+        }
+
+        .customize-options h2 {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .customize-form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .customize-form label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+            text-align: left;
+        }
+
+        .customize-form textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .customize-form button {
+            padding: 10px 20px;
+            background-color: #d17b88;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .customize-form button:hover {
+            background-color: #d17b88;
+        }
+
+        .mbti-quiz {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .mbti-question {
+            margin-bottom: 20px;
+        }
+
+        .mbti-question label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .mbti-options label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .mbti-result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d17b88;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .mbti-suggestions {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .mbti-suggestions h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .mbti-suggestions img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .back-to-shop {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-to-shop a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .footer {
+            background-color: #302f49;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer .copy {
+            margin-bottom: 10px;
+        }
+
+        .bottom-links {
+            display: flex;
+            justify-content: center;
+        }
+
+        .bottom-links a {
+            text-decoration: none;
+            color: #a1a1a1;
+            padding: 0 10px;
+        }
+
+        .bottom-links a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">Florell</a>
+        <nav class="nav-items">
+            <a href="index.html">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="cart.html" style="background: #d17b88; color: white; padding: 6px 12px; border-radius: 4px;">View
+                Cart</a>
+        </nav>
+    </header>
+
+    <div class="customize-container">
+        <h1>Customize Your Scent & Discover Your Flower Match</h1>
+
+        <div class="customize-options">
+            <h2>Tell Us About Your Dream Scent</h2>
+            <p>Describe your ideal fragrance, and we'll see what we can create!</p>
+            <form class="customize-form" id="customizeForm">
+                <label for="scentDescription">Describe your ideal scent:</label>
+                <textarea id="scentDescription" rows="6"
+                    placeholder="e.g., Woody with a hint of citrus and floral notes..."></textarea>
+                <button type="button" onclick="submitCustomization()">Submit Customization</button>
+            </form>
+        </div>
+
+        <div class="customize-options">
+            <h2>Discover Your Flower Match Through Our MBTI-Inspired Quiz</h2>
+            <p>Answer the following questions to find flowers that resonate with your personality!</p>
+            <div class="mbti-quiz" id="mbtiQuiz">
+                <div class="mbti-question">
+                    <label>1. When you go out, do you prefer:</label>
+                    <div class="mbti-options">
+                        <label><input type="radio" name="q1" value="E">Being around lots of people</label>
+                        <label><input type="radio" name="q1" value="I">A more intimate gathering with close friends</label>
+                    </div>
+                </div>
+                <div class="mbti-question">
+                    <label>2. When making decisions, are you more influenced by:</label>
+                    <div class="mbti-options">
+                        <label><input type="radio" name="q2" value="S">Practical facts and details</label>
+                        <label><input type="radio" name="q2" value="N">Imagination and possibilities</label>
+                    </div>
+                </div>
+                <div class="mbti-question">
+                    <label>3. When interacting with others, is it more important to be:</label>
+                    <div class="mbti-options">
+                        <label><input type="radio" name="q3" value="T">Logical and objective</label>
+                        <label><input type="radio" name="q3" value="F">Considerate and empathetic</label>
+                    </div>
+                </div>
+                <div class="mbti-question">
+                    <label>4. Do you tend to:</label>
+                    <div class="mbti-options">
+                        <label><input type="radio" name="q4" value="J">Plan things out carefully</label>
+                        <label><input type="radio" name="q4" value="P">Go with the flow</label>
+                    </div>
+                </div>
+                <button onclick="calculateMBTI()">Find My Flower!</button>
+            </div>
+            <div class="mbti-result hidden" id="mbtiResult">Your MBTI Type: <span id="mbtiType"></span></div>
+            <div>
+                <h3>Flowers for Each MBTI and It's Reasons</h3>
+                <img id="mbtiImageSuggestion" src="mbti.jpg">
+                <p id="mbtiSuggestionText"></p>
+            </div>
+        </div>
+
+        <div class="back-to-shop">
+            <a href="index.html">Back to Shop</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="copy">©2025 Florell</div>
+        <div class="bottom-links">
+            <a href="index.html">Home</a>
+            <a href="#">Shop</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        function submitCustomization() {
+            const scentDescription = document.getElementById('scentDescription').value.trim();
+            if (scentDescription) {
+                alert("Thank you for your customization request! We will review your preferences and get back to you soon.");
+                document.getElementById('scentDescription').value = ''; // Clear the textarea
+                // In a real application, you would likely send this data to a server.
+                console.log("Customization submitted:", scentDescription);
+            } else {
+                alert("Please describe your ideal scent before submitting.");
+            }
+        }
+
+        function calculateMBTI() {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            const q4 = document.querySelector('input[name="q4"]:checked');
+
+            if (!q1 || !q2 || !q3 || !q4) {
+                alert("Please answer all the questions to find your flower match!");
+                return;
+            }
+
+            let type = '';
+            type += q1.value;
+            type += q2.value;
+            type += q3.value;
+            type += q4.value;
+
+            document.getElementById('mbtiType').textContent = type;
+            document.getElementById('mbtiResult').classList.remove('hidden');
+            document.getElementById('mbtiSuggestions').classList.remove('hidden');
+
+            const commonFlowerImageLink = 'link_to_your_common_flower_image.jpg'; // Replace with the actual link
+            document.getElementById('mbtiImageSuggestion').src = commonFlowerImageLink;
+            document.getElementById('mbtiSuggestionText').textContent = ''; // You can add a general reason here if you want
+        }
+    </script>
+</body>
+
+</html>
