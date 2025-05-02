@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florélle - Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .cart-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .payment-section {
+            margin-top: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+        }
+        .hidden {
+            display: none;
+        }
+        .invoice {
+            margin-top: 30px;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border: 1px solid #c8e6c9;
+        }
+        .invoice table {
+            width: 100%;
+        }
+        .invoice td {
+            padding: 8px 0;
+            text-align: left;
+        }
+        .invoice td:first-child {
+            font-weight: bold;
+            padding-right: 10px;
+            width: 150px; /* Adjust width as needed for alignment */
+        }
+        button {
+            background-color: #302f49;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4a4466;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div class="cart-container">
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="total">Grand Total (incl. GST/SGST): ₹<span id="grandTotal">0</span></div>
+
+        <div class="payment-section">
+            <h2>Enter Details & Choose Payment Method</h2>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="custName">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="text" id="custMobile">
+            </div>
+            <div class="form-group">
+                <label>Email ID</label>
+                <input type="email" id="custEmail">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="custAddress">
+            </div>
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select id="paymentMethod" onchange="togglePaymentFields()">
+                    <option value="">--Select--</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="cod">Cash on Delivery</option>
+                </select>
+            </div>
+
+            <div class="form-group hidden" id="cardDetails">
+                <label>Card Number</label>
+                <input type="text" id="cardNumber">
+                <label>Expiry</label>
+                <input type="text" id="cardExpiry">
+                <label>CVV</label>
+                <input type="text" id="cardCVV">
+            </div>
+
+            <div class="form-group hidden" id="upiDetails">
+                <label>UPI ID</label>
+                <input type="text" id="upiId">
+            </div>
+
+            <button onclick="handlePurchase()">Buy Now</button>
+
+            <div class="invoice hidden" id="invoice">
+                <h2>Invoice</h2>
+                <table>
+                    <tr>
+                        <td>Name:</td>
+                        <td id="invName"></td>
+                    </tr>
+                    <tr>
+                        <td>Mobile:</td>
+                        <td id="invMobile"></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td id="invEmail"></td>
+                    </tr>
+                    <tr>
+                        <td>Address:</td>
+                        <td id="invAddress"></td>
+                    </tr>
+                    <tr>
+                        <td>Payment Method:</td>
+                        <td id="invMethod"></td>
+                    </tr>
+                    <tr>
+                        <td>Total with GST/SGST:</td>
+                        <td>₹<span id="invTotal"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('florelleCart')) || [];
+        const tbody = document.querySelector('#cartTable tbody');
+        let total = 0;
+
+        function updateCartDisplay() {
+            tbody.innerHTML = ''; // Clear the table body
+            total = 0;
+            if (cart.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="4">Your cart is empty.</td>';
+                tbody.appendChild(row);
+                document.getElementById('grandTotal').textContent = '0.00';
+            } else {
+                cart.forEach(item => {
+                    const name = item && item.name !== undefined ? item.name : 'Unnamed Product';
+                    const price = item && item.price !== undefined ? Number(item.price) || 0 : 0;
+                    const quantity = item && item.quantity !== undefined ? Number(item.quantity) || 1 : 1;
+                    const itemTotal = price * quantity;
+                    total += itemTotal;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>₹${price.toFixed(2)}</td>
+                        <td>${quantity}</td>
+                        <td>₹${itemTotal.toFixed(2)}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+                const gst = total * 0.09;
+                const sgst = total * 0.09;
+                const grandTotal = total + gst + sgst;
+                document.getElementById('grandTotal').textContent = grandTotal.toFixed(2);
+            }
+        }
+
+        updateCartDisplay(); // Initial cart display
+
+        function togglePaymentFields() {
+            document.getElementById('cardDetails').classList.add('hidden');
+            document.getElementById('upiDetails').classList.add('hidden');
+            const method = document.getElementById('paymentMethod').value;
+            if (method === 'card') {
+                document.getElementById('cardDetails').classList.remove('hidden');
+            } else if (method === 'upi') {
+                document.getElementById('upiDetails').classList.remove('hidden');
+            }
+        }
+
+        function handlePurchase() {
+            const custName = document.getElementById('custName').value.trim();
+            const custMobile = document.getElementById('custMobile').value.trim();
+            const custEmail = document.getElementById('custEmail').value.trim();
+            const custAddress = document.getElementById('custAddress').value.trim();
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const grandTotal = document.getElementById('grandTotal').textContent;
+
+            if (!custName || !custMobile || !custEmail || !custAddress || !paymentMethod) {
+                alert("Please fill out all required fields.");
+                return;
+            }
+
+            // Mobile number validation (basic 10-digit check)
+            const mobileRegex = /^[0-9]{10}$/;
+            if (!mobileRegex.test(custMobile)) {
+                alert("Please enter a valid 10-digit mobile number.");
+                return;
+            }
+
+            // Email ID validation (more permissive basic email format check)
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(custEmail)) {
+                alert("Please enter a valid email ID.");
+                return;
+            }
+
+            if (paymentMethod === 'card') {
+                const cardNumber = document.getElementById('cardNumber').value.trim();
+                const cardExpiry = document.getElementById('cardExpiry').value.trim();
+                const cardCVV = document.getElementById('cardCVV').value.trim();
+                if (!cardNumber || !cardExpiry || !cardCVV) {
+                    alert("Please fill out all card details.");
+                    return;
+                }
+            }
+
+            if (paymentMethod === 'upi') {
+                const upiId = document.getElementById('upiId').value.trim();
+                if (!upiId) {
+                    alert("Please enter your UPI ID.");
+                    return;
+                }
+            }
+
+            // Store invoice details in localStorage
+            const invoiceData = {
+                name: custName,
+                mobile: custMobile,
+                email: custEmail,
+                address: custAddress,
+                paymentMethod: paymentMethod.toUpperCase(),
+                total: grandTotal
+            };
+            localStorage.setItem('florelleInvoice', JSON.stringify(invoiceData));
+
+            // Clear the cart immediately
+            localStorage.removeItem('florelleCart');
+            cart.length = 0;
+            updateCartDisplay();
+
+            // Redirect after a short delay (to ensure localStorage is updated)
+            setTimeout(() => {
+                window.location.href = 'invoice.html';
+            }, 100); // Adjust the delay if needed
+        }
+    </script>
+</body>
+</html>
