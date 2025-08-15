@@ -20,10 +20,11 @@ We wanted to go beyond “just perfumes” and create an **experience** — one 
 
 ---
 
-## 📌 Tech Stack
-- **HTML5** for structure  
-- **CSS3** for styling and layout  
-- **GitHub Pages** for hosting
+## 🧰 Tech Stack
+- **HTML5** — semantic structure  
+- **CSS3** — styling, layout, and responsive design  
+- **JavaScript (ES6+)** — interactivity (quiz scaffolding, filters, local state)  
+- **GitHub Pages** — static hosting
 
 ---
 
