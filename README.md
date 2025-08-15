@@ -1,0 +1,1 @@
+This is a simple website that I created with my friend @HarithaRathakrishnan, for my entrepreneurship course; where we had this idea of beginning a perfume startup, that focused on personalised scents based on their MBTI.
